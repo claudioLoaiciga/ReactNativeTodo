@@ -5,10 +5,10 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  Button,
+  Button
 } from "react-native";
 import TodoList from "TodoList/src/components/TodoList";
-import { getTodos } from "TodoList/src/data/todos";
+import { getTodos, addTodo, updateTodo, deleteTodo } from "TodoList/src/data/todos";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
   },
-  text: {
+  Text: {
     flex: 1,
     borderBottomWidth: 1,
     padding: 5,
@@ -54,9 +54,11 @@ class MainScreen extends Component {
     this.setState({ todos: getTodos() });
   };
 
-  handleAdd = () =>{
-    
-  }
+  handleAdd = () => {
+    const { todos, newTodo } = this.state;
+    const newList = addTodo(todos, { Text: newTodo });
+    this.setState({ todos: newList, newTodo: null });
+  };
   /**
    * La desestructuración (destructuring)
    * es una forma de extraer valores de un array
@@ -77,7 +79,7 @@ class MainScreen extends Component {
             placeholder="Nuevo ToDo"
             value={newTodo}
             onChangeText={(todo) => this.setState({ newTodo: todo })}
-            style={styles.text}
+            style={styles.Text}
             autoCapitalize="words"
             clearButtonMode="always"
             returnKeyType="done"
