@@ -1,22 +1,22 @@
 import uuid from "uuid/v1";
 
 const getTodos = () => [
-    newTodo({ Text: "Tarea 1", done:false }), 
-    newTodo({ Text: "Tarea 2", done:false }), 
-    newTodo({ Text: "Tarea 3", done:false }),
-    newTodo({ Text: "Tarea 4", done:true }),
-    newTodo({ Text: "Tarea 5", done:false })
+    newTodo({ text: "Tarea 1", done:false }), 
+    newTodo({ text: "Tarea 2", done:false }), 
+    newTodo({ text: "Tarea 3", done:false }),
+    newTodo({ text: "Tarea 4", done:true }),
+    newTodo({ text: "Tarea 5", done:false })
    ];
 
    const newTodo = todo =>({
        id: uuid(),
-       Text: todo.Text,
+       text: todo.text,
        createdAt: new Date(),
        done: todo.done
    });
 
    const updateTodo = (list, todo) => {
-    const updateIndex = list.findIndex(t => t.id === todo.Text);
+    const updateIndex = list.findIndex(t => t.id === todo.id);
     const newTodoList = [...list];
     newTodoList[updateIndex] = todo;
     return newTodoList;

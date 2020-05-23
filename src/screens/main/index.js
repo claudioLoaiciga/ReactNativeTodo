@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
   },
-  Text: {
+  text: {
     flex: 1,
     borderBottomWidth: 1,
     padding: 5,
@@ -56,9 +56,23 @@ class MainScreen extends Component {
 
   handleAdd = () => {
     const { todos, newTodo } = this.state;
-    const newList = addTodo(todos, { Text: newTodo });
+    const newList = addTodo(todos, { text: newTodo });
     this.setState({ todos: newList, newTodo: null });
   };
+
+  handleUpdate = todo => {
+    const { todos } = this.state;
+    const newList = updateTodo(todos, todo);
+    this.setState({ todos: newList });
+  };
+
+  handleDelete = todo => {
+    const { todos } = this.state;
+    const newList = deleteTodo(todos, todo);
+    this.setState({ todos: newList });
+  };
+
+
   /**
    * La desestructuración (destructuring)
    * es una forma de extraer valores de un array
@@ -79,14 +93,14 @@ class MainScreen extends Component {
             placeholder="Nuevo ToDo"
             value={newTodo}
             onChangeText={(todo) => this.setState({ newTodo: todo })}
-            style={styles.Text}
+            style={styles.text}
             autoCapitalize="words"
             clearButtonMode="always"
             returnKeyType="done"
           />
           <Button onPress={this.handleAdd} title="Añadir"/>
         </View>
-        <TodoList todos={this.state.todos} />
+        <TodoList todos={todos} onUpdate={this.handleUpdate} onDelete={this.handleDelete}/>
       </SafeAreaView>
     );
   }
